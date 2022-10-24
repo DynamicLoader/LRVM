@@ -108,22 +108,22 @@ namespace ALU
 
     void Lui(LRVM_ExecutorArgsDef)
     {
-        vm._x[op.rd] = op.imm << 12;
+        vm._x[op.rd] = op.imm;
         vm._pc++;
     }
 
     void Auipc(LRVM_ExecutorArgsDef)
     {
-        vm._x[op.rd] = (vm._pc << 2) + (op.imm << 12);
+        vm._x[op.rd] = (vm._pc << 2) + (op.imm);
         vm._pc++;
     }
 
-    void Beq(LRVM_ExecutorArgsDef) { vm._pc += (vm._x[op.rs1] == vm._x[op.rs2] ? op.imm : 0); }
-    void Bne(LRVM_ExecutorArgsDef) { vm._pc += (vm._x[op.rs1] != vm._x[op.rs2] ? op.imm : 0); }
-    void Blt(LRVM_ExecutorArgsDef) { vm._pc += (vm._x[op.rs1] < vm._x[op.rs2] ? op.imm : 0); }
-    void Bge(LRVM_ExecutorArgsDef) { vm._pc += (vm._x[op.rs1] >= vm._x[op.rs2] ? op.imm : 0); }
-    void Bltu(LRVM_ExecutorArgsDef) { vm._pc += ((uint32_t)vm._x[op.rs1] < (uint32_t)vm._x[op.rs2] ? op.imm : 0); }
-    void Bgeu(LRVM_ExecutorArgsDef) { vm._pc += ((uint32_t)vm._x[op.rs1] >= (uint32_t)vm._x[op.rs2] ? op.imm : 0); }
+    void Beq(LRVM_ExecutorArgsDef) { vm._pc += (vm._x[op.rs1] == vm._x[op.rs2] ? op.imm : 1); }
+    void Bne(LRVM_ExecutorArgsDef) { vm._pc += (vm._x[op.rs1] != vm._x[op.rs2] ? op.imm : 1); }
+    void Blt(LRVM_ExecutorArgsDef) { vm._pc += (vm._x[op.rs1] < vm._x[op.rs2] ? op.imm : 1); }
+    void Bge(LRVM_ExecutorArgsDef) { vm._pc += (vm._x[op.rs1] >= vm._x[op.rs2] ? op.imm : 1); }
+    void Bltu(LRVM_ExecutorArgsDef) { vm._pc += ((uint32_t)vm._x[op.rs1] < (uint32_t)vm._x[op.rs2] ? op.imm : 1); }
+    void Bgeu(LRVM_ExecutorArgsDef) { vm._pc += ((uint32_t)vm._x[op.rs1] >= (uint32_t)vm._x[op.rs2] ? op.imm : 1); }
 
     void Jal(LRVM_ExecutorArgsDef)
     {

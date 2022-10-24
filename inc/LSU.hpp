@@ -26,13 +26,13 @@ namespace Internal {
 
         void LB(LRVM_ExecutorArgsDef)
         {
-            uint32_t addr = (vm._x[op.rs1] + op.imm);
+            int32_t addr = (vm._x[op.rs1] + op.imm);
             vm._x[op.rd] = (int8_t)vm._memory[addr];
             vm._pc++;
         }
         void LH(LRVM_ExecutorArgsDef)
         {
-            uint32_t addr = (vm._x[op.rs1] + op.imm);
+            int32_t addr = (vm._x[op.rs1] + op.imm);
             if (addr & 0b1) {
                 vm._errorHandler(vm, op);
                 return;
@@ -43,7 +43,7 @@ namespace Internal {
         }
         void LW(LRVM_ExecutorArgsDef)
         {
-            uint32_t addr = (vm._x[op.rs1] + op.imm);
+            int32_t addr = (vm._x[op.rs1] + op.imm);
             if (addr & 0b11) {
                 vm._errorHandler(vm, op);
                 return;
@@ -54,13 +54,13 @@ namespace Internal {
         }
         void LBU(LRVM_ExecutorArgsDef)
         {
-            uint32_t addr = (vm._x[op.rs1] + op.imm);
+            int32_t addr = (vm._x[op.rs1] + op.imm);
             vm._x[op.rd] = vm._memory[addr];
             vm._pc++;
         }
         void LHU(LRVM_ExecutorArgsDef)
         {
-            uint32_t addr = (vm._x[op.rs1] + op.imm);
+            int32_t addr = (vm._x[op.rs1] + op.imm);
             if (addr & 0b1) {
                 vm._errorHandler(vm, op);
                 return;
@@ -72,13 +72,13 @@ namespace Internal {
 
         void SB(LRVM_ExecutorArgsDef)
         {
-            uint32_t addr = vm._x[op.rs1] + op.imm;
+            int32_t addr = vm._x[op.rs1] + op.imm;
             vm._memory[addr] = vm._x[op.rs2] & 0xFF;
             vm._pc++;
         }
         void SH(LRVM_ExecutorArgsDef)
         {
-            uint32_t addr = vm._x[op.rs1] + op.imm;
+            int32_t addr = vm._x[op.rs1] + op.imm;
             if (addr & 0b1) {
                 vm._errorHandler(vm, op);
                 return;
@@ -89,7 +89,7 @@ namespace Internal {
         }
         void SW(LRVM_ExecutorArgsDef)
         {
-            uint32_t addr = vm._x[op.rs1] + op.imm;
+            int32_t addr = vm._x[op.rs1] + op.imm;
             if (addr & 0b1) {
                 vm._errorHandler(vm, op);
                 return;

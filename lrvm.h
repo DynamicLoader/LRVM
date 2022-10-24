@@ -28,22 +28,46 @@ SOFTWARE.
 
 // ========== User Config begin   ===================
 
+// To debug,define it.
+#define LRVM_DEBUG_ENABLED 1
+
+
 // The max core count for each VM; default to 4
+#ifndef LRVM_VMCPU_MAX_CORE_COUNT
 #define LRVM_VMCPU_MAX_CORE_COUNT 4
+#endif
+
+
 
 // ========== User Config end     ===================
 
 // Pre-compile check
-#if (__cplusplus < 201103L)
-#error Compiler with C++ 11 (or higher) standard and full STL support is required to compile the library! Compile terminated.
+#if (__cplusplus < 201100L)
+#error Compiler with C++ 11 (or higher) standard is required to compile the library! Compile terminated.
+#endif
+
+#ifdef LRVM_DEBUG_ENABLED
+#include <cstdio>
+#define LRVM_DEBUG(x) x
+#else
+#define LRVM_DEBUG(x) 
 #endif
 
 #include "inc/lrvm_impl.hpp"
 
 // Export class...
 
-// Main class for the library;the alias of LRVM::Internal::VMCPU
 namespace LRVM {
+
+// Main class for the library;the alias of LRVM::Internal::VMCPU
 using VM = Internal::VMCPU;
+
+
+/* To define a error handling function,follow the template
+        CoreErrorCB_t <FunctionName> = [](LRVM_ExecutorArgsDef){
+
+        };
+*/
+using CoreErrorCB_t = Internal::_lrvm_icb_t;
 
 } // namespace LRVM

@@ -62,10 +62,10 @@ namespace Internal {
     } _cmd_t;
 
     typedef struct {
-        _operation_t cmd;
-        uint8_t rd;
-        uint8_t rs1, rs2;
-        int32_t imm;
+        _operation_t cmd = Invaild_Operation;
+        uint8_t rd = -1;
+        uint8_t rs1 = -1, rs2 = -1;
+        int32_t imm = 0;
     } Op_t;
 
     namespace Decoder {
@@ -133,8 +133,12 @@ namespace Internal {
             case 0b0110011: // Basic R-R operation (R-type)
             {
                 uint8_t funct7 = (cmd >> 25) & 0b1111111;
-                if (funct7 == 0x20)
+                if (funct7 == 0x20){
                     ret.cmd = (funct3 == 0x0 ? SUB : SRA);
+                    ret.cmd = __operation_irr_t[funct3];
+                    _getParam(R, ret, cmd);
+                    return ret;
+                }
                 if (funct7 != 0x00) {
                     ret.cmd = Invaild_Operation;
                     return ret;
